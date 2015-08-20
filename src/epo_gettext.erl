@@ -8,7 +8,6 @@
 
 parse_transform(Forms, Options) ->
 	case lists:keyfind(gettext, 1, Options) of
-
 		{_, Module} when is_atom(Module) -> parse_forms(Forms, Module);
 		_ -> exit("Must compile with {gettext, gettext_po_module_name}\n")
 	end.
@@ -23,10 +22,10 @@ parse_forms({call, _N1, {var, _N2, '__'}, [Var]} = _Form, _Module) ->
 parse_forms({call, N1, {var, N2, '_'}, Params} = Form, Module) when is_list(Params) ->
 	L = length(Params),
 	case L of
-		1 -> {call, N1, {remote, N2, {atom, N2, Module}, {atom, N2, gettext}}, [{atom, N2, Module} | Params]};
-		2 -> {call, N1, {remote, N2, {atom, N2, Module}, {atom, N2, gettext}}, [{atom, N2, Module} | Params]};
-		3 -> {call, N1, {remote, N2, {atom, N2, Module}, {atom, N2, ngettext}}, [{atom, N2, Module} | Params]};
-		4 -> {call, N1, {remote, N2, {atom, N2, Module}, {atom, N2, ngettext}}, [{atom, N2, Module} | Params]};
+		1 -> {call, N1, {remote, N2, {atom, N2, epo_gettext}, {atom, N2, gettext}}, [{atom, N2, Module} | Params]};
+		2 -> {call, N1, {remote, N2, {atom, N2, epo_gettext}, {atom, N2, gettext}}, [{atom, N2, Module} | Params]};
+		3 -> {call, N1, {remote, N2, {atom, N2, epo_gettext}, {atom, N2, ngettext}}, [{atom, N2, Module} | Params]};
+		4 -> {call, N1, {remote, N2, {atom, N2, epo_gettext}, {atom, N2, ngettext}}, [{atom, N2, Module} | Params]};
 		_ -> Form
 	end;
 
