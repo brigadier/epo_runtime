@@ -66,7 +66,9 @@ npgettext(Mod, Context, Literal, Plural, N, Locale) ->
 	npgettext_(Mod, Context, Literal, Plural, N, Locale).
 
 pgettext_(Mod, Context, Literal, Locale) when is_list(Literal) ->
-	binary_to_list(pgettext_(Mod, Context, list_to_binary(Literal), Locale));
+  BinLiteral = unicode:characters_to_binary(Literal, utf8),
+	BinTrans = pgettext_(Mod, Context, BinLiteral, Locale),
+  unicode:characters_to_list(BinTrans, utf8);
 
 pgettext_(Mod, Context_, Literal, Locale_) ->
 	Locale = locale(Locale_),
@@ -79,7 +81,9 @@ pgettext_(Mod, Context_, Literal, Locale_) ->
 
 
 npgettext_(Mod, Context, Literal, Plural, N, Locale) when is_list(Literal) ->
-	binary_to_list(npgettext_(Mod, Context, list_to_binary(Literal), Plural, N, Locale));
+  BinLiteral = unicode:characters_to_binary(Literal, utf8),
+	BinTrans = npgettext_(Mod, Context, BinLiteral, Plural, N, Locale),
+  unicode:characters_to_list(BinTrans, utf8);
 npgettext_(Mod, Context_, Literal, Plural_, N, Locale_) ->
 	Locale = locale(Locale_),
 	Context = to_bin(Context_),
