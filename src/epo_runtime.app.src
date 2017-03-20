@@ -1,7 +1,6 @@
 {application,epo_runtime,
-             [{description,[]},
-              {vsn,"0.2.0"},
-              {id,"git"},
+             [{description,"epo translation runtime library"},
+              {vsn,"0.3.0"},
               {modules,[]},
               {registered,[]},
               {applications,[kernel,stdlib]}]}.
